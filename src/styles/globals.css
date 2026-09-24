@@ -1,0 +1,113 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* =========================================================
+   DESIGN TOKENS — taken from the Prime Deals design file.
+   Change a value here and it applies everywhere.
+   ========================================================= */
+:root {
+  --bg: #fcfcfb;
+  --surface: #ffffff;
+  --surface-2: #f6f7f6;
+  --cream: #fdf2e5;
+  --ink: #10201f;
+  --muted: #6e7674;
+  --line: #e4e7e5;
+  --brand: #10504f;
+  --brand-hi: #15706d;
+  --on-brand: #ffffff;
+  --gold: #b8863b;
+}
+
+.dark {
+  --bg: #08110f;
+  --surface: #0d1917;
+  --surface-2: #122220;
+  --cream: #15231e;
+  --ink: #eaf0ee;
+  --muted: #9ba8a5;
+  --line: #1e302d;
+  --brand: #2e8e86;
+  --brand-hi: #43ada3;
+  --on-brand: #04100f;
+  --gold: #d2a65a;
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+  text-wrap: pretty;
+}
+
+[dir='rtl'] body { font-family: var(--font-arabic), system-ui, sans-serif; }
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-hi); }
+
+::selection { background: var(--brand); color: var(--on-brand); }
+
+/* Scroll-reveal primitive used by <Reveal /> */
+.reveal-hidden { opacity: 0; transform: translateY(28px); }
+.reveal-in { opacity: 1; transform: none; transition: opacity .8s cubic-bezier(.2,.8,.2,1), transform .8s cubic-bezier(.2,.8,.2,1); }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; }
+  .reveal-hidden { opacity: 1; transform: none; }
+}
+
+/* =========================================================
+   LAYOUT PRIMITIVES that cannot be expressed as utilities
+   ========================================================= */
+
+/* Five-project bento: 1 column on phones, 2×3 on tablets, hero+4 on desktop */
+.pd-bento {
+  grid-template-columns: 1fr;
+  grid-template-areas: "a" "b" "c" "d" "e";
+}
+@media (min-width: 760px) {
+  .pd-bento {
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-areas: "a a" "b c" "d e";
+  }
+}
+@media (min-width: 1080px) {
+  .pd-bento {
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: 260px 260px;
+    grid-template-areas: "a a b c" "a a d e";
+  }
+}
+
+/* Carousel rails: slim scrollbar, no layout shift */
+.pd-rail { scrollbar-width: thin; }
+.pd-rail::-webkit-scrollbar { height: 6px; }
+.pd-rail::-webkit-scrollbar-track { background: transparent; }
+.pd-rail::-webkit-scrollbar-thumb { background: var(--line); border-radius: 99px; }
+
+/* 360 tour pan */
+@keyframes pan {
+  from { transform: translateX(0) scale(1.6); }
+  to   { transform: translateX(-22%) scale(1.6); }
+}
+
+/* Never let a long word or a wide table break the mobile layout */
+img, video, canvas, svg { max-width: 100%; }
+table { display: block; overflow-x: auto; }
+
+/* Comfortable tap targets on touch devices */
+@media (hover: none) and (pointer: coarse) {
+  a, button, [role='button'] { min-height: 44px; }
+}
+
+/* =========================================================
+   FIXED CONTACT RAIL — reserve its gutter once, on the page
+   shell, so no container can ever sit beneath it.
+   ========================================================= */
+/* The rail floats above the content, so the shell reserves nothing. */
+.pd-shell { padding-inline-end: 0; }
