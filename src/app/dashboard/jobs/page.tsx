@@ -14,7 +14,7 @@ const fields: Field[] = [
   { name: 'department_ar', label: 'القسم (AR)', type: 'text', half: true },
   { name: 'location_en', label: 'LOCATION (EN)', type: 'text', half: true },
   { name: 'location_ar', label: 'المكان (AR)', type: 'text', half: true },
-  { name: 'employment_type', label: 'CONTRACT', type: 'select', half: true, options: [
+  { name: 'employment_type', label: 'CONTRACT', type: 'select', options: [
     { value: 'full_time', label: 'Full time' }, { value: 'part_time', label: 'Part time' },
     { value: 'contract', label: 'Contract' }, { value: 'internship', label: 'Internship' },
   ] },
